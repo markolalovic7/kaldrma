@@ -1,6 +1,17 @@
 import { useEffect, useState } from 'react';
-import './App.css';
+import './App.scss';
 import base from "./base"
+import Product from './Product';
+import Single from './Single';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
+
 
 function App() {
   const [products, setProducts] = useState(null);
@@ -10,10 +21,10 @@ function App() {
       context: this,
       asArray: true
     }).then(data => {
-      console.log("Success loading data");
+      console.log("Success loading data :)");
       setProducts(data)
     }).catch(error => {
-      console.log("Error loading data");
+      console.log("Loading data error :/");
     })
   }
 
@@ -22,14 +33,28 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        kaldrma
+    <Router>
+      <div className="App">
+        <header className="App-header">
+          kaldrma
       </header>
-      <body>
-        {console.log("products:", products)}
-      </body>
-    </div>
+        <main>
+          <section>
+            {console.log(products)}
+            {products && products.map((product) => (
+              <Product key={product.id} details={product} />
+            ))}
+          </section>
+        </main>
+      </div>
+
+      {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+      <Switch>
+        <Route path={`/:name`} component={Single}>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

@@ -11,6 +11,7 @@ import {
   useRouteMatch,
   useParams
 } from "react-router-dom";
+import Home from './Home';
 
 
 function App() {
@@ -36,24 +37,19 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
-          kaldrma
-      </header>
+          <Link to="/">kaldrma</Link>
+        </header>
         <main>
-          <section>
-            {console.log(products)}
-            {products && products.map((product) => (
-              <Product key={product.id} details={product} />
-            ))}
-          </section>
+          <Switch>
+            <Route path="/" exact>
+              <Home products={products} />
+            </Route>
+            <Route path="/:name">
+              <Single />
+            </Route>
+          </Switch>
         </main>
       </div>
-
-      {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-      <Switch>
-        <Route path={`/:name`} component={Single}>
-        </Route>
-      </Switch>
     </Router>
   );
 }

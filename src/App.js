@@ -44,9 +44,8 @@ function App() {
             <Route path="/" exact>
               <Home products={products} />
             </Route>
-            <Route path="/:name">
-              <Single />
-            </Route>
+            <Route path="/:productId" component={Single} />
+
           </Switch>
         </main>
       </div>

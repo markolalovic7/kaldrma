@@ -11,8 +11,8 @@ function Product(props) {
   return (
     <>
       <article>
-        <img alt={name} src={image} />
-        <Link to={`/${name.replace(/\s+/g, '-').toLowerCase()}`}>
+        <img alt={name} src={`/images/${image}`} />
+        <Link to={`/${id}`}>
           <h2>
             {name}
           </h2>

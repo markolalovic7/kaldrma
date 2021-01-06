@@ -6,12 +6,19 @@
   height: 40vmin;
   pointer-events: none;
 }
-
-section {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  article {
-    padding: 2em;
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  section {
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    justify-content: space-around;
+    article {
+      margin-bottom: 2em;
+      img {
+        width: 100%;
+      }
+    }
   }
 }
 
@@ -30,6 +37,7 @@ section {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  margin-bottom: 2em;
   a {
     color: white;
   }

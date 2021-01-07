@@ -6,7 +6,7 @@ function Single(props) {
 
   const [products, setProducts] = useState();
   const [items, setItems] = useState();
-  const productId = props.match.params.productId;
+  const productName = props.match.params.productName;
 
   function getSales() {
     base.fetch('products', {
@@ -22,8 +22,8 @@ function Single(props) {
 
   useEffect(() => {
     getSales();
-    products && productId &&
-      setItems(products.filter(product => product.id == productId))
+    products && productName &&
+      setItems(products.filter(product => product.name.replace(/\s+/g, '-').toLowerCase() == productName))
   }, [products]);
 
 

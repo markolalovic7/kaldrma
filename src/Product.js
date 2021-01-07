@@ -12,11 +12,11 @@ function Product(props) {
     <>
       <article>
         <img alt={name} src={`/images/${image}`} />
-        <Link to={`/${id}`}>
-          <h2>
+        <h2>
+          <Link to={`/${name.replace(/\s+/g, '-').toLowerCase()}`}>
             {name}
-          </h2>
-        </Link>
+          </Link>
+        </h2>
         <p>{desc}</p>
         <p>{price}</p>
         <p>{status}</p>

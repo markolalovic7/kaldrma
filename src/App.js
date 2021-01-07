@@ -37,14 +37,14 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
-          <Link to="/">kaldrma</Link>
+          <h1><Link to="/">kald<span>R</span>ma</Link></h1>
         </header>
         <main>
           <Switch>
             <Route path="/" exact>
               <Home products={products} />
             </Route>
-            <Route path="/:productId" component={Single} />
+            <Route path="/:productName" component={Single} />
 
           </Switch>
         </main>

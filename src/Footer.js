@@ -16,6 +16,7 @@ function Footer() {
         <img alt="footer logo" src="/footer-logo.png" />
         <span>KALDRMA</span>
       </Link>
+      <small>© Kaldrma 2021</small>
     </footer>
   )
 }

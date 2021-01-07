@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.scss';
-import base from "./base"
+import base, { handleUserProfile } from "./base"
 import Product from './Product';
 import Single from './Single';
 import {
@@ -9,16 +9,22 @@ import {
   Route,
   Link,
   useRouteMatch,
-  useParams
+  useParams,
+  Redirect
 } from "react-router-dom";
 import Home from './Home';
 import Header from './Header';
 import Footer from './Footer';
 import ShoppingCart from './ShoppingCart';
-
+import Registration from './Registration';
+import LogIn from './LogIn';
+import { auth } from "./base"
 
 function App() {
   const [products, setProducts] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  let authListener = null;
 
   function getSales() {
     base.fetch('products', {
@@ -34,12 +40,31 @@ function App() {
 
   useEffect(() => {
     getSales();
-  }, []);
+
+    authListener = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await handleUserProfile(userAuth);
+        userRef.onSnapshot(snapshot => {
+          setCurrentUser(
+            {
+              id: snapshot.id,
+              ...snapshot.data()
+            }
+
+          )
+        })
+      }
+
+      setCurrentUser(null);
+    })
+
+
+  }, [authListener]);
 
   return (
     <Router>
       <div className="App">
-        <Header />
+        <Header currentUser={currentUser} />
 
         <main>
           <Switch>
@@ -50,6 +75,10 @@ function App() {
             <Route path="/shopping-cart">
               <ShoppingCart />
             </Route>
+            <Route path="/registration">
+              <Registration />
+            </Route>
+            <Route path="/log-in" render={() => currentUser ? <Redirect to="/" /> : <LogIn />} />
           </Switch>
         </main>
 

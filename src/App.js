@@ -48,6 +48,12 @@ function App() {
 
           </Switch>
         </main>
+        <footer>
+          <Link to="/">
+            <img alt="footer logo" src="/footer-logo.png" />
+            <span>KALDRMA</span>
+          </Link>
+        </footer>
       </div>
     </Router>
   );

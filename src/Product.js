@@ -20,10 +20,10 @@ function Product(props) {
           </Link>
         </h2>
         <p>{desc}</p>
-        <p>{price}</p>
-        <p>{status}</p>
-        <b>{category ? category : "-"}</b>
-
+        {/* <p>{price} din</p> */}
+        {/* <p>{status}</p> */}
+        {/* <b>{category ? category : "-"}</b> */}
+        <button><i class="gg-math-plus"></i> <span>Add to cart <b>[{price} din]</b></span></button>
       </article>
     </>
   )

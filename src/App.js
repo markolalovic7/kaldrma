@@ -12,6 +12,9 @@ import {
   useParams
 } from "react-router-dom";
 import Home from './Home';
+import Header from './Header';
+import Footer from './Footer';
+import ShoppingCart from './ShoppingCart';
 
 
 function App() {
@@ -36,24 +39,21 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <header className="App-header">
-          <h1><Link to="/">kald<span>R</span>ma</Link></h1>
-        </header>
+        <Header />
+
         <main>
           <Switch>
             <Route path="/" exact>
               <Home products={products} />
             </Route>
-            <Route path="/:productName" component={Single} />
-
+            <Route path="/product/:productName" component={Single} />
+            <Route path="/shopping-cart">
+              <ShoppingCart />
+            </Route>
           </Switch>
         </main>
-        <footer>
-          <Link to="/">
-            <img alt="footer logo" src="/footer-logo.png" />
-            <span>KALDRMA</span>
-          </Link>
-        </footer>
+
+        <Footer />
       </div>
     </Router>
   );

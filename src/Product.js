@@ -1,12 +1,18 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
   Link
 } from "react-router-dom";
 
 
 function Product(props) {
-  const { id, name, image, desc, price, status, category } = props.details;
+  const {
+    //id, 
+    name,
+    image,
+    desc, price,
+    //status, 
+    //category 
+  } = props.details;
 
   return (
     <>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import base from "./base"
 
 function Single(props) {
@@ -23,8 +22,8 @@ function Single(props) {
   useEffect(() => {
     getSales();
     products && productName &&
-      setItems(products.filter(product => product.name.replace(/\s+/g, '-').toLowerCase() == productName))
-  }, [products]);
+      setItems(products.filter(product => product.name.replace(/\s+/g, '-').toLowerCase() === productName))
+  }, [products, productName]);
 
 
   return (

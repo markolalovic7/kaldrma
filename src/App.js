@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react';
 import './App.scss';
 import base, { handleUserProfile } from "./base"
-import Product from './Product';
 import Single from './Single';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useRouteMatch,
-  useParams,
   Redirect
 } from "react-router-dom";
 import Home from './Home';
@@ -24,7 +20,7 @@ function App() {
   const [products, setProducts] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
-  let authListener = null;
+
 
   function getSales() {
     base.fetch('products', {
@@ -40,8 +36,8 @@ function App() {
 
   useEffect(() => {
     getSales();
-
-    authListener = auth.onAuthStateChanged(async userAuth => {
+    //let authListener = null;
+    auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot(snapshot => {
@@ -54,12 +50,9 @@ function App() {
           )
         })
       }
-
       setCurrentUser(null);
     })
-
-
-  }, [authListener]);
+  }, []);
 
   return (
     <Router>

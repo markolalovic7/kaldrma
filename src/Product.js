@@ -29,7 +29,7 @@ function Product(props) {
         {/* <p>{price} din</p> */}
         {/* <p>{status}</p> */}
         {/* <b>{category ? category : "-"}</b> */}
-        <button><i className="gg-math-plus"></i> <span>Add to cart <b>[{price} din]</b></span></button>
+        <button className="flex-center"><i className="gg-math-plus"></i> <span>Add to cart <b>[{price} din]</b></span></button>
       </article>
     </>
   )

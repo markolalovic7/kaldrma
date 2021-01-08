@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import './App.scss';
 import base, { handleUserProfile } from "./base"
+import Product from './Product';
 import Single from './Single';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Link,
+  useRouteMatch,
+  useParams,
   Redirect
 } from "react-router-dom";
 import Home from './Home';
@@ -15,10 +19,11 @@ import ShoppingCart from './ShoppingCart';
 import Registration from './Registration';
 import LogIn from './LogIn';
 import { auth } from "./base"
+import firebase from "firebase";
 
 function App() {
   const [products, setProducts] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(firebase.auth().currentUser);
 
 
 
@@ -34,10 +39,12 @@ function App() {
     })
   }
 
+  //authListener = null;
+
   useEffect(() => {
     getSales();
     //let authListener = null;
-    auth.onAuthStateChanged(async userAuth => {
+    const authListener = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot(snapshot => {
@@ -50,8 +57,11 @@ function App() {
           )
         })
       }
-      setCurrentUser(null);
+
+      setCurrentUser(firebase.auth().currentUser);
     })
+
+
   }, []);
 
   return (

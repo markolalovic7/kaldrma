@@ -1,9 +1,11 @@
-import React from "react"
+import React from "react";
+import SignUp from "./SignUp";
 
 function Registration() {
   return (
     <div className="registration">
-      registration
+      <h2>Registration</h2>
+      <SignUp />
     </div>
   )
 }

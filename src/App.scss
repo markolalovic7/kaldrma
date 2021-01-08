@@ -9,6 +9,9 @@
 
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -47,6 +50,9 @@ main {
   margin: 0 auto;
   z-index: 2;
   position: relative;
+  overflow: hidden;
+  min-height: 49vh;
+  flex: 1 1 auto;
   section {
     display: grid;
     grid-template-columns: 30% 30% 30%;
@@ -83,6 +89,7 @@ main {
 }
 
 .header-wrap {
+  overflow: hidden;
   .top-nav {
     display: flex;
     justify-content: flex-end;
@@ -133,9 +140,9 @@ main {
     font-size: calc(10px + 2vmin);
     color: white;
     margin-bottom: 2em;
-    margin-top: 1em;
     h1 {
       font-size: 30px;
+      margin-top: 2em;
       a {
         color: black;
         font-family: kaldrmaCube;
@@ -155,8 +162,6 @@ main {
 }
 
 button {
-  display: flex;
-  align-items: center;
   padding: 7px 16px 5px;
   background-color: rgba(255, 152, 0, 0.25);
   cursor: pointer;
@@ -181,6 +186,9 @@ button {
 .flex-center {
   display: flex;
   align-items: center;
+}
+.align-center {
+  text-align: center;
 }
 
 footer {
@@ -225,5 +233,18 @@ footer {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+form {
+  min-width: 500px;
+  label {
+    display: block;
+    margin-bottom: 0.5em;
+    min-width: 500px;
+    input {
+      min-width: 500px;
+      padding: 5px;
+    }
   }
 }

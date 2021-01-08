@@ -78,9 +78,7 @@ function App() {
             <Route path="/shopping-cart">
               <ShoppingCart />
             </Route>
-            <Route path="/registration">
-              <Registration />
-            </Route>
+            <Route path="/registration" render={() => currentUser ? <Redirect to="/" /> : <Registration />} />
             <Route path="/log-in" render={() => currentUser ? <Redirect to="/" /> : <LogIn />} />
           </Switch>
         </main>

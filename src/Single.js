@@ -23,7 +23,7 @@ function Single(props) {
     getSales();
     products && productName &&
       setItems(products.filter(product => product.name.replace(/\s+/g, '-').toLowerCase() === productName))
-  }, [products, productName]);
+  }, [products && productName]);
 
 
   return (

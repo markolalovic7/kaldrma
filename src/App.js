@@ -1,15 +1,11 @@
-import { useEffect, useState } from 'react';
+import React, { Component } from 'react';
 import './App.scss';
 import base, { handleUserProfile } from "./base"
 import Product from './Product';
 import Single from './Single';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useRouteMatch,
-  useParams,
   Redirect
 } from "react-router-dom";
 import Home from './Home';
@@ -19,74 +15,93 @@ import ShoppingCart from './ShoppingCart';
 import Registration from './Registration';
 import LogIn from './LogIn';
 import { auth } from "./base"
-import firebase from "firebase";
+import { setCurrentUser } from "./redux/user/user.actions"
+import { connect } from "react-redux"
 
-function App() {
-  const [products, setProducts] = useState(null);
-  const [currentUser, setCurrentUser] = useState(firebase.auth().currentUser);
+const initialState = {
+  products: null,
+  currentUser: null,
+  currentUserState: null
+}
 
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...initialState
+    }
+  }
 
+  authListener = null;
 
-  function getSales() {
+  componentDidMount() {
     base.fetch('products', {
       context: this,
       asArray: true
     }).then(data => {
-      console.log("Success loading data :)");
-      setProducts(data)
+      console.log("Success loading data :)", data);
+      this.setState({ products: data })
     }).catch(error => {
       console.log("Loading data error :/");
     })
-  }
 
-  //authListener = null;
-
-  useEffect(() => {
-    getSales();
-    //let authListener = null;
-    const authListener = auth.onAuthStateChanged(async userAuth => {
+    this.authListener = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot(snapshot => {
-          setCurrentUser(
-            {
+          this.setState({
+            currentUserState: {
               id: snapshot.id,
               ...snapshot.data()
             }
-
-          )
+          })
         })
       }
+      this.setState({
+        currentUserState: null
+      });
+    });
+  }
 
-      setCurrentUser(firebase.auth().currentUser);
-    })
+  // addItem(newItem) {
+  //   this.setState({
+  //     items: this.state.items.concat([newItem]) //updates Firebase and the local state
+  //   });
+  // }
 
+  componentWillUnmount() {
+    this.authListener();
+  }
 
-  }, []);
-
-  return (
-    <Router>
-      <div className="App">
-        <Header currentUser={currentUser} />
-
+  render() {
+    return (
+      <div className="App" >
+        <Header currentUserState={this.state.currentUserState} />
         <main>
           <Switch>
             <Route path="/" exact>
-              <Home products={products} />
+              <Home products={this.state.products} />
             </Route>
             <Route path="/product/:productName" component={Single} />
             <Route path="/shopping-cart">
               <ShoppingCart />
             </Route>
-            <Route path="/registration" render={() => currentUser ? <Redirect to="/" /> : <Registration />} />
-            <Route path="/log-in" render={() => currentUser ? <Redirect to="/" /> : <LogIn />} />
+            <Route path="/registration" render={() => this.state.currentUserState ? <Redirect to="/" /> : <Registration />} />
+            <Route path="/log-in" render={() => this.state.currentUserState ? <Redirect to="/" /> : <LogIn />} />
           </Switch>
         </main>
-
         <Footer />
       </div>
-    </Router>
-  );
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+})
+
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

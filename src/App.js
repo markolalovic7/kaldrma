@@ -21,7 +21,7 @@ import { connect } from "react-redux"
 const initialState = {
   products: null,
   currentUser: null,
-  currentUserState: null
+  //currentUserState: null
 }
 
 class App extends Component {
@@ -55,11 +55,16 @@ class App extends Component {
               ...snapshot.data()
             }
           })
+          this.props.setCurrentUser({
+            id: snapshot.id,
+            ...snapshot.data()
+          })
         })
       }
       this.setState({
         currentUserState: null
       });
+      this.props.setCurrentUser(userAuth);
     });
   }
 
@@ -74,9 +79,15 @@ class App extends Component {
   }
 
   render() {
+
+    const { currentUser } = this.props;
+    console.log("currentUserApp", currentUser);
+
     return (
       <div className="App" >
-        <Header currentUserState={this.state.currentUserState} />
+        <Header
+        //currentUserState={this.state.currentUserState} 
+        />
         <main>
           <Switch>
             <Route path="/" exact>
@@ -86,8 +97,8 @@ class App extends Component {
             <Route path="/shopping-cart">
               <ShoppingCart />
             </Route>
-            <Route path="/registration" render={() => this.state.currentUserState ? <Redirect to="/" /> : <Registration />} />
-            <Route path="/log-in" render={() => this.state.currentUserState ? <Redirect to="/" /> : <LogIn />} />
+            <Route path="/registration" render={() => currentUser ? <Redirect to="/" /> : <Registration />} />
+            <Route path="/log-in" render={() => currentUser ? <Redirect to="/" /> : <LogIn />} />
           </Switch>
         </main>
         <Footer />

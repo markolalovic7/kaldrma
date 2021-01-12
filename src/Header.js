@@ -5,20 +5,20 @@ import {
 import { auth } from "./base";
 import { connect } from "react-redux"
 function Header(props) {
-  //const { currentUser } = props;
-  console.log(props.currentUserState)
+  const { currentUser } = props;
+  console.log("currentUserHeader", currentUser);
   return (
     <div className="header-wrap">
       <div className="top-nav">
-        {!props.currentUserState && (
+        {!currentUser && (
           <>
             <Link to="/registration" >Register</Link>
             <Link to="/log-in" >Login</Link>
           </>
         )}
-        {props.currentUserState && (
+        {currentUser && (
           <>
-            <Link to="#" disabled>{props.currentUserState.displayName}</Link>
+            <Link to="#" disabled>{currentUser.displayName}</Link>
             <Link to="#" onClick={() => auth.signOut()}>Logout</Link>
           </>
         )}
@@ -41,7 +41,6 @@ Header.defaultProps = {
 
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser
-}
-)
+});
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, null)(Header);

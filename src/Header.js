@@ -5,8 +5,9 @@ import {
 import { auth } from "./base";
 import { connect } from "react-redux"
 function Header(props) {
+
   const { currentUser } = props;
-  console.log("currentUserHeader", currentUser);
+
   return (
     <div className="header-wrap">
       <div className="top-nav">
@@ -18,7 +19,7 @@ function Header(props) {
         )}
         {currentUser && (
           <>
-            <Link to="#" disabled>{currentUser.displayName}</Link>
+            <Link to="#" disabled>{`${currentUser.displayName}(${currentUser.email})`}</Link>
             <Link to="#" onClick={() => auth.signOut()}>Logout</Link>
           </>
         )}

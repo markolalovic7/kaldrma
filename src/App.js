@@ -16,13 +16,15 @@ import Registration from './Registration';
 import LogIn from './LogIn';
 import { auth } from "./base"
 import { setCurrentUser } from "./redux/user/user.actions"
-import { connect } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 
 function App(props) {
 
   const [products, setProducts] = useState(null);
-  const { setCurrentUser, currentUser } = props;
+  const [user, setUser] = useState();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     base.fetch('products', {
@@ -40,19 +42,14 @@ function App(props) {
       if (userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot(snapshot => {
-          // this.setState({
-          //   currentUserState: {
-          //     id: snapshot.id,
-          //     ...snapshot.data()
-          //   }
-          // })
-          setCurrentUser({
+          dispatch(setCurrentUser({
             id: snapshot.id,
             ...snapshot.data()
-          })
+          }))
         })
       }
-      setCurrentUser(userAuth);
+      dispatch(setCurrentUser(userAuth));
+      setUser(userAuth);
     });
 
     return () => {
@@ -73,13 +70,10 @@ function App(props) {
   //   this.authListener();
   // }
 
-
-
+  console.log("currentUser", user)
   return (
     <div className="App" >
-      <Header
-      //currentUserState={currentUserState} 
-      />
+      <Header />
       <main>
         <Switch>
           <Route path="/" exact>
@@ -89,8 +83,8 @@ function App(props) {
           <Route path="/shopping-cart">
             <ShoppingCart />
           </Route>
-          <Route path="/registration" render={() => currentUser ? <Redirect to="/" /> : <Registration />} />
-          <Route path="/log-in" render={() => currentUser ? <Redirect to="/" /> : <LogIn />} />
+          <Route path="/registration" render={() => user ? <Redirect to="/" /> : <Registration />} />
+          <Route path="/log-in" render={() => user ? <Redirect to="/" /> : <LogIn />} />
         </Switch>
       </main>
       <Footer />
@@ -98,12 +92,4 @@ function App(props) {
   );
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
-})
-
-const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

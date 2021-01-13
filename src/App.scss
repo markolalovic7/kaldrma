@@ -91,13 +91,18 @@ main {
 .header-wrap {
   overflow: hidden;
   .top-nav {
+    background-color: white;
     display: flex;
     justify-content: flex-end;
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 3;
+    font-size: 14px;
+    // box-shadow: rgba(240, 46, 170, 0.4) 0px 5px,
+    //   rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px,
+    //   rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
     a {
       padding: 10px;
       color: black;
@@ -142,7 +147,7 @@ main {
     margin-bottom: 2em;
     h1 {
       font-size: 30px;
-      margin-top: 2em;
+      margin-top: 3em;
       a {
         color: black;
         font-family: kaldrmaCube;
@@ -193,7 +198,7 @@ button {
 
 footer {
   border-top: 1px solid #eee;
-  padding: 2em 0 0.5em;
+  padding: 1em 0 0.5em;
   a {
     // font-family: kaldrmaLavirint;
     color: black;

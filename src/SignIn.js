@@ -1,24 +1,37 @@
-import React, { useState } from "react";
-import { signInWithGoogle, auth } from "./base";
+import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
+import { signInWithGoogle } from "./base";
+import { useDispatch, useSelector } from "react-redux";
+import { SignInUser } from "./redux/user/user.actions"
 
-const SignIn = (props) => {
+const mapState = ({ user }) => ({
+  signInSuccess: user.signInSuccess
+})
+
+const SignIn = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { signInSuccess } = useSelector(mapState);
 
   const resetForm = () => {
     setEmail('');
     setPassword('');
   }
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
+  useEffect(() => {
+    if (signInSuccess) {
       resetForm();
-    } catch (err) {
-      //console.log(err);
+      history.push('/');
     }
+  }, [signInSuccess, history])
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    dispatch(SignInUser({ email, password }));
   }
+
   return (
     <div className="sign-in">
       <h2>Log in</h2>

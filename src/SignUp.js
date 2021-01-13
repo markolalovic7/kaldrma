@@ -1,13 +1,22 @@
-import React, { useState } from "react"
-import { auth, handleUserProfile } from "./base"
+import React, { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { SignUpUser } from "./redux/user/user.actions"
+
+const mapState = ({ user }) => ({
+  signUpSuccess: user.signUpSuccess,
+  signUpError: user.signUpError
+})
 
 function SignUp() {
-
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState([]);
+  const { signUpSuccess, signUpError } = useSelector(mapState);
 
   const resetForm = () => {
     setDisplayName('');
@@ -16,24 +25,20 @@ function SignUp() {
     setConfirmPassword('');
   }
 
-  const handleFormSubmit = async event => {
-    event.preventDefault();
-    if (password !== confirmPassword) {
-      const err = ['Passwords do not match!']
-      setErrors(err)
-      return;
-    }
-
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(email, password);
-      await handleUserProfile(user, { displayName });
-
+  useEffect(() => {
+    if (signUpSuccess) {
       resetForm();
-
-    } catch (err) {
-      //console.log(err);
+      history.push('/');
     }
 
+    if (Array.isArray(signUpError) && signUpError.length > 0) {
+      setErrors(signUpError)
+    }
+  }, [signUpSuccess, signUpError, history])
+
+  const handleFormSubmit = event => {
+    event.preventDefault();
+    dispatch(SignUpUser({ displayName, email, password, confirmPassword }));
   }
 
   return (

@@ -3,10 +3,15 @@ import {
   Link
 } from "react-router-dom";
 import { auth } from "./base";
-import { connect } from "react-redux"
-function Header(props) {
+import { useSelector } from "react-redux"
 
-  const { currentUser } = props;
+const mapState = ({ user }) => ({
+  currentUser: user.currentUser
+});
+
+function Header() {
+
+  const { currentUser } = useSelector(mapState);
 
   return (
     <div className="header-wrap">
@@ -19,7 +24,7 @@ function Header(props) {
         )}
         {currentUser && (
           <>
-            <Link to="#" disabled>{`${currentUser.displayName}(${currentUser.email})`}</Link>
+            <Link to="#" disabled>{`${currentUser.displayName}${" "}(${currentUser.email})`}</Link>
             <Link to="#" onClick={() => auth.signOut()}>Logout</Link>
           </>
         )}
@@ -40,8 +45,6 @@ Header.defaultProps = {
   currentUser: null
 };
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
-});
 
-export default connect(mapStateToProps, null)(Header);
+
+export default Header;

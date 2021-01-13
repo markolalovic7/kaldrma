@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
 import base, { handleUserProfile } from "./base"
-import Product from './Product';
 import Single from './Single';
 import {
   Switch,
@@ -16,7 +15,7 @@ import Registration from './Registration';
 import LogIn from './LogIn';
 import { auth } from "./base"
 import { setCurrentUser } from "./redux/user/user.actions"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 
 
 function App(props) {
@@ -57,17 +56,13 @@ function App(props) {
     };
 
 
-  }, []);
+  }, [dispatch]);
 
 
   // addItem(newItem) {
   //   this.setState({
   //     items: items.concat([newItem]) //updates Firebase and the local state
   //   });
-  // }
-
-  // componentWillUnmount() {
-  //   this.authListener();
   // }
 
   console.log("currentUser", user)

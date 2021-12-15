@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './single-product.scss';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ProductsUrlEnum } from '../model/domain/interfaces/enums/ProductsUrlEnum';
+import { BiArrowBack } from 'react-icons/bi';
 
 function SingleProduct() {
     const [product, setProduct] = useState<any>({});
+    let navigate = useNavigate();
     const url = ProductsUrlEnum.PRODUCT_URL;
     let { id } = useParams();
 
@@ -36,6 +38,9 @@ function SingleProduct() {
                     <img src={product.image} alt={product.title} />
                 </figure>
                 <aside>
+                    <button onClick={() => navigate(-1)}>
+                        <BiArrowBack size={'30px'} />
+                    </button>
                     <h1>{product.title}</h1>
                     <h3>
                         {product.price} <span>RSD</span>

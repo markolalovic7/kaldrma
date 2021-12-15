@@ -33,8 +33,6 @@ function App() {
             });
     };
 
-    // console.table(products);
-
     return (
         <div className="App">
             <header className="App-header">

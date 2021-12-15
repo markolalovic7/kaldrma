@@ -37,7 +37,10 @@ function App() {
         <div className="App">
             <header className="App-header">
                 <Link to="/">
-                    <img src={logo ? logo : ''} className="App-logo" alt="Kaldrma" />
+                    <figure>
+                        <img src={logo ? logo : ''} className="App-logo" alt="Kaldrma" />
+                        <figcaption>KaldrmaShop</figcaption>
+                    </figure>
                     {/* <h1>KALDRMA</h1> */}
                 </Link>
                 {/* <img src={logo ? logo : ''} className="App-logo" alt="Kaldrma" /> */}

@@ -38,9 +38,9 @@ function SingleProduct() {
                     <img src={product.image} alt={product.title} />
                 </figure>
                 <aside>
-                    <button onClick={() => navigate(-1)}>
-                        <BiArrowBack size={'30px'} />
-                    </button>
+                    {/* <button onClick={() => navigate(-1)}> */}
+                    <BiArrowBack onClick={() => navigate(-1)} size={'30px'} />
+                    {/* </button> */}
                     <h1>{product.title}</h1>
                     <h3>
                         {product.price} <span>RSD</span>

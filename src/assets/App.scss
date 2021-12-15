@@ -1,0 +1,82 @@
+@import './Dimensions.scss';
+
+body {
+    color: #333;
+    font-size: 18px;
+}
+section {
+    text-align: left;
+    max-width: 80%;
+    margin: 0 auto;
+}
+img {
+    width: 100%;
+}
+.App {
+    text-align: center;
+}
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+h1 {
+    font-size: 3.5rem;
+}
+
+button {
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 6px 10px 5px;
+    line-height: 1.5;
+    &:hover {
+        outline: 1px solid #92278f;
+    }
+}
+// .primary {
+//     background-color: #f9f871;
+//     color: #92278f;
+// }
+// .secondary {
+//     background-color: #92278f;
+//     color: #f9f871;
+// }
+
+@media only screen and (max-width: 400px) {
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: transparent;
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    padding: $basicSpace;
+    img {
+        width: 150px;
+        height: auto;
+        //box-shadow: 0px 13px 0px -8px #92278f3b;
+    }
+}
+
+// @keyframes App-logo-spin {
+//     from {
+//         transform: rotate(0deg);
+//     }
+//     to {
+//         transform: rotate(360deg);
+//     }
+// }

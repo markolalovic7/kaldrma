@@ -1,0 +1,21 @@
+@import '../../../assets/Dimensions.scss';
+
+.product-list {
+    margin-top: $basicSpace;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20%;
+    article {
+        width: 20%;
+        margin-bottom: $basicSpace;
+        figure {
+            margin: 0;
+        }
+        div {
+            cursor: pointer;
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+    }
+}

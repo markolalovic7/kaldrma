@@ -1,18 +1,26 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
 import './single-product.scss';
+import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ProductsUrlEnum } from '../model/domain/interfaces/enums/ProductsUrlEnum';
 import { BiArrowBack } from 'react-icons/bi';
+import { CartContext } from '../CartContext';
+
+interface tShirt {
+    name: string;
+    price: number;
+}
 
 function SingleProduct() {
     const [product, setProduct] = useState<any>({});
     let navigate = useNavigate();
     const url = ProductsUrlEnum.PRODUCT_URL;
     let { id } = useParams();
+    const [cart, setCart] = useContext(CartContext);
 
     useEffect(() => {
         loadProduct();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const loadProduct = () => {
@@ -30,7 +38,18 @@ function SingleProduct() {
                 // always executed
             });
     };
-    console.table(product);
+    //console.table(product);
+
+    type simpleType = tShirt[];
+
+    function handleAddToCart() {
+        const tShirt: tShirt = { name: product.title, price: product.price };
+        console.log('tShirt', tShirt);
+        setCart((prevState: simpleType) => [...prevState, tShirt]);
+    }
+
+    console.log('cart', cart);
+
     return (
         <>
             <section className="product">
@@ -48,7 +67,9 @@ function SingleProduct() {
                     <b>{product.category}</b>
                     <p>{product.description}</p>
                     <div className="shop-buttons-wrapper">
-                        <button className="primary">add to cart</button>
+                        <button className="primary" onClick={handleAddToCart}>
+                            add to cart
+                        </button>
                         <button className="secondary">shop now</button>
                     </div>
                 </aside>

@@ -9,12 +9,15 @@ section {
     max-width: 80%;
     margin: 0 auto;
 }
+
 img {
     width: 100%;
 }
+
 .App {
     text-align: center;
 }
+
 .App-logo {
     height: 40vmin;
     pointer-events: none;
@@ -23,6 +26,18 @@ img {
 h1 {
     font-size: 3.5rem;
     margin: 20px 0 10px 0;
+}
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.fixed {
+    position: fixed;
 }
 
 button {
@@ -34,6 +49,9 @@ button {
     &:hover {
         outline: 1px solid #92278f;
     }
+}
+figcaption {
+    color: #92278f;
 }
 // .primary {
 //     background-color: #f9f871;

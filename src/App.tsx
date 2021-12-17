@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.png';
 import axios from 'axios';
 import { Route, Routes } from 'react-router-dom';
 import { ProductsUrlEnum } from './model/domain/interfaces/enums/ProductsUrlEnum';
 import { Product } from './model/domain/interfaces/Product';
 import { MainRoutes } from './model/domain/ui/routes/MainRoutes';
-import SingleProduct from './pages/SingleProduct';
-import ProductList from './shared/components/product-list/ProductList';
-import { Link } from 'react-router-dom';
-import Cart from './Cart';
 import { CartProvider } from './CartContext';
+import ProductList from './shared/components/product-list/ProductList';
+import SingleProduct from './pages/single-product/SingleProduct';
+import Header from './shared/components/header/header';
+import Footer from './shared/components/footer/Footer';
 
 function App() {
     const [products, setProducts] = useState<Array<Product>>([]);
@@ -40,25 +39,14 @@ function App() {
     return (
         <CartProvider>
             <div className="App">
-                <header className="App-header relative">
-                    <Link to="/">
-                        <figure>
-                            <img src={logo ? logo : ''} className="App-logo" alt="Kaldrma" />
-                            <figcaption>KaldrmaShop</figcaption>
-                        </figure>
-                        {/* <h1>KALDRMA</h1> */}
-                    </Link>
-                    {/* <img src={logo ? logo : ''} className="App-logo" alt="Kaldrma" /> */}
-                    <Cart />
-                </header>
+                <Header />
                 <Routes>
                     <React.Fragment>
                         <Route path={MainRoutes.HOME} element={<ProductList products={products} />}></Route>
-                        <Route path="/:id" element={<SingleProduct />}></Route>
-                        {/* <Navigate to="/" /> */}
+                        <Route path={MainRoutes.SINGLE_PRODUCT} element={<SingleProduct />}></Route>
                     </React.Fragment>
                 </Routes>
-                <footer>footer</footer>
+                <Footer />
             </div>
         </CartProvider>
     );

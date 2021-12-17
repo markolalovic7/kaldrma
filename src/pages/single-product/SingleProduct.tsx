@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 import './single-product.scss';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ProductsUrlEnum } from '../model/domain/interfaces/enums/ProductsUrlEnum';
 import { BiArrowBack } from 'react-icons/bi';
-import { CartContext } from '../CartContext';
+import { CartContext } from '../../CartContext';
+import { ProductsUrlEnum } from '../../model/domain/interfaces/enums/ProductsUrlEnum';
 
 interface tShirt {
     name: string;
@@ -52,13 +52,19 @@ function SingleProduct() {
 
     return (
         <>
+            {/* <div className="space">
+                <div className="space-inner"></div>
+            </div> */}
             <section className="product">
                 <figure>
                     <img src={product.image} alt={product.title} />
                 </figure>
                 <aside>
                     {/* <button onClick={() => navigate(-1)}> */}
-                    <BiArrowBack onClick={() => navigate(-1)} size={'30px'} />
+                    <div className="go-back" onClick={() => navigate(-1)}>
+                        <BiArrowBack size={'30px'} />
+                        <span> Back to products</span>
+                    </div>
                     {/* </button> */}
                     <h1>{product.title}</h1>
                     <h3>
@@ -70,7 +76,7 @@ function SingleProduct() {
                         <button className="primary" onClick={handleAddToCart}>
                             add to cart
                         </button>
-                        <button className="secondary">shop now</button>
+                        {/* <button className="secondary">shop now</button> */}
                     </div>
                 </aside>
             </section>

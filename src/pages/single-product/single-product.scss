@@ -1,0 +1,60 @@
+@import '../../assets/Dimensions.scss';
+@import '../../assets/Colors.scss';
+
+.product {
+    margin: $basicSpace auto;
+    display: flex;
+    gap: 10%;
+    figure {
+        width: 40%;
+        img {
+            width: 100%;
+        }
+    }
+    aside {
+        width: 60%;
+        .shop-buttons-wrapper {
+            display: flex;
+            align-items: center;
+            gap: $basicSpace;
+            margin-top: $basicSpace;
+        }
+        h3 {
+            font-family: monospace;
+        }
+    }
+}
+
+.go-back {
+    display: flex;
+    align-items: center;
+    color: $primary;
+    cursor: pointer;
+    font-size: 15px;
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+    span {
+        margin-left: 7px;
+        padding-bottom: 2px;
+    }
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.space {
+    height: 70px;
+    overflow: hidden;
+    .space-inner {
+        height: 70px;
+        margin-top: -15px;
+        background-color: #fff;
+        opacity: 0.8;
+        background: linear-gradient(135deg, #92278f55 25%, transparent 25%) -14px 0/ 28px 28px,
+            linear-gradient(225deg, #92278f 25%, transparent 25%) -14px 0/ 28px 28px,
+            linear-gradient(315deg, #92278f55 25%, transparent 25%) 0px 0/ 28px 28px,
+            linear-gradient(45deg, #92278f 25%, #fff 25%) 0px 0/ 28px 28px;
+    }
+}

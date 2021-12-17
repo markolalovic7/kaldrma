@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { BiCartAlt } from 'react-icons/bi';
-import { CartContext } from './CartContext';
+import { CartContext } from '../../../CartContext';
 import './cart.scss';
 
 function Cart() {

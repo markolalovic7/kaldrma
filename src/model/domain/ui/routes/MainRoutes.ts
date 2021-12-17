@@ -1,3 +1,4 @@
 export const MainRoutes = {
-	HOME: '/'
+	HOME: '/',
+    SINGLE_PRODUCT: '/:id'
 };

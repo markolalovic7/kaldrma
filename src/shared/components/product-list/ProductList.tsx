@@ -13,17 +13,19 @@ function ProductList({ products }: ProductListProps) {
             {products.map((product: Product) => {
                 return (
                     <article key={product.id}>
-                        <div onClick={() => navigate(`/${product.id}`)}>
-                            <figure>
-                                <img src={product.image} alt={product.title} />
-                            </figure>
-                            <h2>{product.title}</h2>
+                        <div className="article-inner">
+                            <div onClick={() => navigate(`/${product.id}`)}>
+                                <figure>
+                                    <img src={product.image} alt={product.title} />
+                                </figure>
+                                <h2>{product.title}</h2>
+                            </div>
+                            <b>{product.category}</b>
+                            <p>
+                                {product.price} <span>RSD</span>
+                            </p>
+                            {/* <details>{product.description}</details> */}
                         </div>
-                        <b>{product.category}</b>
-                        <p>
-                            {product.price} <span>RSD</span>
-                        </p>
-                        {/* <details>{product.description}</details> */}
                     </article>
                 );
             })}

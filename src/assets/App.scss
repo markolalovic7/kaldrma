@@ -1,9 +1,6 @@
 @import './Dimensions.scss';
+@import './Colors.scss';
 
-body {
-    color: #333;
-    font-size: 18px;
-}
 section {
     text-align: left;
     max-width: 80%;
@@ -14,28 +11,16 @@ img {
     width: 100%;
 }
 
-.App {
-    text-align: center;
-}
-
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
-}
-
-h1 {
-    font-size: 3.5rem;
-    margin: 20px 0 10px 0;
+figcaption {
+    color: $primary;
 }
 
 .relative {
     position: relative;
 }
-
 .absolute {
     position: absolute;
 }
-
 .fixed {
     position: fixed;
 }
@@ -48,50 +33,6 @@ button {
     line-height: 1.5;
     &:hover {
         outline: 1px solid #92278f;
-    }
-}
-figcaption {
-    color: #92278f;
-}
-// .primary {
-//     background-color: #f9f871;
-//     color: #92278f;
-// }
-// .secondary {
-//     background-color: #92278f;
-//     color: #f9f871;
-// }
-
-@media only screen and (max-width: 400px) {
-    h1 {
-        font-size: 2rem;
-    }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
-}
-
-.App-header {
-    background-color: transparent;
-    min-height: 20vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-    padding: $basicSpace;
-    a {
-        text-decoration: none;
-        font-family: monospace;
-        text-transform: none;
-        img {
-            width: 150px;
-            height: auto;
-        }
     }
 }
 

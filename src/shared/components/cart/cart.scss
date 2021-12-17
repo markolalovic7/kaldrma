@@ -1,0 +1,14 @@
+@import '../../../assets/Dimensions.scss';
+@import '../../../assets/Colors.scss';
+
+.cart {
+    color: #333;
+    right: $basicSpace;
+    top: $basicSpace;
+    span {
+        color: $primary;
+        font-family: monospace;
+        margin-top: 10px;
+        font-size: 80%;
+    }
+}

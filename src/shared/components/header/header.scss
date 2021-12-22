@@ -1,4 +1,5 @@
 @import '../../../assets/Dimensions.scss';
+@import '../../../assets/Colors.scss';
 
 header {
     background-color: transparent;
@@ -6,10 +7,10 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     font-size: calc(10px + 2vmin);
     color: white;
-    padding: $basicSpace;
+    padding: $basicSpace / 2;
     a {
         text-decoration: none;
         font-family: monospace;
@@ -17,6 +18,18 @@ header {
         text-align: center;
         figure {
             margin: 0;
+            &:hover {
+                svg {
+                    background-color: $secondary;
+                }
+            }
+            svg {
+                background-color: transparent;
+            }
+            figcaption {
+                color: $primary;
+                font-size: 20px;
+            }
             img.logo {
                 width: 150px;
                 height: auto;

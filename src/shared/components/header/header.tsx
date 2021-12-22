@@ -1,18 +1,17 @@
 import { Link } from 'react-router-dom';
-import Cart from '../cart/Cart';
-import logo from './logo.png';
+//import logo from './kaldrma-logo.svg';
 import './header.scss';
+import KaldrmaLogo from '../../../assets/svg/KaldrmaLogo';
 
 function Header() {
     return (
         <header className="relative">
             <Link to="/">
                 <figure>
-                    <img src={logo ? logo : ''} className="logo" alt="Kaldrma" />
+                    <KaldrmaLogo />
                     <figcaption>KaldrmaShop</figcaption>
                 </figure>
             </Link>
-            <Cart />
         </header>
     );
 }

@@ -1,0 +1,26 @@
+@import '../../../assets/Dimensions.scss';
+@import '../../../assets/Colors.scss';
+
+.shopping-cart-list {
+    background-color: #ffffff;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: 30vw;
+    height: 100vh;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    overflow: auto;
+    .shopping-cart-inner {
+        padding: $basicSpace;
+        h4 {
+            margin-bottom: 0;
+        }
+        div {
+            p {
+                margin-top: 0;
+                color: $primary;
+            }
+        }
+    }
+}

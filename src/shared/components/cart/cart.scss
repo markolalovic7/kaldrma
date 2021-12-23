@@ -3,15 +3,25 @@
 
 .cart {
     color: #333;
-    right: 1.5em;
+    right: $smallSpace;
     top: $smallSpace;
     z-index: 2;
     cursor: pointer;
+    &:hover {
+        svg {
+            path {
+                color: $primary;
+            }
+        }
+    }
     span {
         color: $primary;
         font-family: monospace;
-        margin-top: 10px;
+        top: 10px;
         font-size: 80%;
+        text-align: right;
+        right: 100%;
+        position: absolute;
     }
 }
 .shopping-cart {

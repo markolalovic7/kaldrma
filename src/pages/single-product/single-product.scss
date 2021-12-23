@@ -21,6 +21,16 @@
         }
         h3 {
             font-family: monospace;
+            color: $primary;
+        }
+        fieldset {
+            div {
+                display: flex;
+                gap: $basicSpace / 2;
+                label {
+                    cursor: pointer;
+                }
+            }
         }
     }
 }

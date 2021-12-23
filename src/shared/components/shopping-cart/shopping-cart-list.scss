@@ -13,13 +13,26 @@
     overflow: auto;
     .shopping-cart-inner {
         padding: $basicSpace;
+        h2 {
+            margin-top: 0;
+        }
         h4 {
-            margin-bottom: 0;
+            margin-bottom: 5px;
         }
         div {
             p {
                 margin-top: 0;
                 color: $primary;
+            }
+            small {
+                span {
+                    text-transform: uppercase;
+                    display: inline-block;
+                    background: #efefef;
+                    width: 30px;
+                    text-align: center;
+                    border-radius: 4px;
+                }
             }
         }
     }

@@ -37,17 +37,22 @@ function App() {
             });
     };
 
-    console.log('products', products);
-
     function handleShoppingCartVisible() {
         setShoppingCartVisible(!shoppingCartVisible);
+        if (shoppingCartVisible) {
+            document.body.classList.remove('isHidden');
+        } else {
+            document.body.classList.add('isHidden');
+        }
     }
+
+    console.log('products', products);
 
     return (
         <CartProvider>
             <div className="App">
                 <ShoppingCartList shoppingCartVisible={shoppingCartVisible} />
-                <Cart handleShoppingCartVisible={handleShoppingCartVisible} />
+                <Cart handleShoppingCartVisible={handleShoppingCartVisible} shoppingCartVisible={shoppingCartVisible} />
                 <Header />
                 <Routes>
                     <React.Fragment>

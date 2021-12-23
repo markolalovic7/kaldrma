@@ -8,7 +8,15 @@ interface Props {
 }
 
 function ShoppingCartList({ shoppingCartVisible }: Props) {
-    const [cart] = useContext(CartContext);
+    const [cart, setCart] = useContext(CartContext);
+
+    function handleRemoveItem(id: number) {
+        let newCart = cart.filter((c: any) => {
+            return c.id !== id;
+        });
+        setCart(newCart);
+    }
+
     return shoppingCartVisible ? (
         <div className="shopping-cart-list">
             <div className="shopping-cart-inner">
@@ -18,23 +26,28 @@ function ShoppingCartList({ shoppingCartVisible }: Props) {
                         <div key={i}>
                             <h4>{c.name}</h4>
                             <div>
+                                <small>
+                                    Size: <span>{c.size}</span>
+                                </small>
                                 <p>
                                     Price: <code>{c.price} $</code>
                                 </p>
-                                <button>Remove item</button>
+
+                                <button onClick={() => handleRemoveItem(c.id)}>Remove item</button>
                             </div>
                             <hr className="style1" />
                         </div>
                     );
                 })}
                 <hr className="style2" />
+
+                {cart.length === 0 ? <span>Shopping cart is empty!</span> : null}
                 <h3>
                     Total:{' '}
                     <code>
                         {cart.reduce((accumulator: any, current: any) => accumulator + current.price, 0).toFixed(2)}$
                     </code>
                 </h3>
-                {cart.length === 0 ? <span>Shopping cart is empty!</span> : null}
                 <button>Checkout</button>
             </div>
         </div>

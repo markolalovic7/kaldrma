@@ -1,21 +1,23 @@
 import { useContext } from 'react';
 import { BiCartAlt } from 'react-icons/bi';
+import { RiCloseLine } from 'react-icons/ri';
 import { CartContext } from '../../../CartContext';
 import './cart.scss';
 
 interface Props {
     handleShoppingCartVisible: () => void;
+    shoppingCartVisible: boolean;
 }
 
-function Cart({ handleShoppingCartVisible }: Props) {
+function Cart({ handleShoppingCartVisible, shoppingCartVisible }: Props) {
     const [cart] = useContext(CartContext);
-    console.log('cart', cart);
+    // console.log('cart', cart);
     return (
         <>
             <div className="cart fixed" onClick={handleShoppingCartVisible}>
                 <div className="relative">
-                    <BiCartAlt color="#333" />
-                    <span className="absolute">{cart.length}</span>
+                    {!shoppingCartVisible && cart.length > 0 && <span className="absolute">{cart.length}</span>}
+                    {!shoppingCartVisible ? <BiCartAlt color="#333" /> : <RiCloseLine color="#333" />}
                 </div>
             </div>
             {/* <div className="shopping-cart">

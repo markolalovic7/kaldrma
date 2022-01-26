@@ -1,20 +1,22 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
 import { CartContext } from '../../CartContext';
 import './checkout.scss';
-import { CheckoutInfo } from '../../model/domain/interfaces/CheckoutInfo';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
-//import { PersonalInfo } from '../../model/domain/interfaces/PersonalInfo';
 
 function Checkout() {
     let navigate = useNavigate();
     const [cart, setCart] = useContext(CartContext);
-    const [checkoutInfo, setCheckoutInfo] = useState<Array<CheckoutInfo>>([]);
+    const [checkoutInfo, setCheckoutInfo] = useState<any>({});
     const [personalInfo, setPersonalInfo] = useState<any>({});
-    const [sent, setSent] = useState(false);
+    //const [sent, setSent] = useState(false);
     //const [text, setText] = useState<any>('');
+
+    useEffect(() => {
+        setCheckoutInfo({ ...personalInfo, cart });
+    }, [personalInfo]);
 
     function handleRemoveItem(id: number) {
         let newCart = cart.filter((c: any) => {
@@ -33,28 +35,23 @@ function Checkout() {
     }
 
     // printDelayed is a 'Promise<void>'
-    async function handleSend(e: any) {
+    const handleSend = async (e: any) => {
         e.preventDefault();
-        setCheckoutInfo({
-            ...checkoutInfo,
-            ...personalInfo,
-            cart,
-        });
-        setSent(true);
+        let stringOfCheckoutInfo = JSON.stringify(checkoutInfo);
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
         try {
-            if (checkoutInfo) {
-                let stringOfCheckoutInfo = JSON.stringify(checkoutInfo);
-                await axios.post('http://localhost:4000/send_mail', {
-                    stringOfCheckoutInfo,
-                });
-                console.log('stringOfCheckoutInfo', stringOfCheckoutInfo);
-            }
+            await axios.post('http://localhost:4000/send_mail', {
+                stringOfCheckoutInfo,
+            });
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
-    console.log('checkoutInfo', checkoutInfo);
+    console.log('checkoutInfo-out', checkoutInfo);
+    console.log('cart', cart);
 
     return (
         <>
@@ -105,77 +102,77 @@ function Checkout() {
                     </div>
                     <h1>Checkout</h1>
                     <h2>Personal information</h2>
-                    {!sent ? (
-                        <form id="checkout-form" onSubmit={(e) => handleSend(e)}>
-                            <div className="flex-center">
-                                <label htmlFor="firstName">
-                                    <p>First name:</p>
-                                    <input
-                                        type="text"
-                                        placeholder="Ipce"
-                                        id="firstName"
-                                        value={personalInfo?.firstName || ''}
-                                        name="firstName"
-                                        onChange={(e) => handleValue(e)}
-                                    />
-                                </label>
-                                <label htmlFor="lastName">
-                                    <p>Last name:</p>
-                                    <input
-                                        type="text"
-                                        placeholder="Ahmedovski"
-                                        id="lastName"
-                                        value={personalInfo?.lastName || ''}
-                                        name="lastName"
-                                        onChange={(e) => handleValue(e)}
-                                    />
-                                </label>
-                            </div>
-                            <label htmlFor="email">
-                                <p>E-mail:</p>
-                                <input
-                                    type="email"
-                                    placeholder="ipcelegenda@gmail.com"
-                                    id="email"
-                                    value={personalInfo?.email || ''}
-                                    name="email"
-                                    onChange={(e) => handleValue(e)}
-                                />
-                            </label>
 
-                            <label htmlFor="address">
-                                <p>Full address:</p>
+                    <form id="checkout-form" onSubmit={handleSend}>
+                        <div className="flex-center">
+                            <label htmlFor="firstName">
+                                <p>First name*:</p>
                                 <input
+                                    required
                                     type="text"
-                                    placeholder="Pogled Boska Buhe 2, Beograd"
-                                    id="address"
-                                    value={personalInfo?.address || ''}
-                                    name="address"
+                                    placeholder="Ipce"
+                                    id="firstName"
+                                    value={personalInfo?.firstName || ''}
+                                    name="firstName"
                                     onChange={(e) => handleValue(e)}
                                 />
                             </label>
-
-                            <label htmlFor="phone">
-                                <p>Phone:</p>
+                            <label htmlFor="lastName">
+                                <p>Last name*:</p>
                                 <input
-                                    type="tel"
-                                    id="phone"
-                                    placeholder="061063064"
-                                    value={personalInfo?.phone || ''}
-                                    name="phone"
+                                    required
+                                    type="text"
+                                    placeholder="Ahmedovski"
+                                    id="lastName"
+                                    value={personalInfo?.lastName || ''}
+                                    name="lastName"
                                     onChange={(e) => handleValue(e)}
                                 />
                             </label>
-                            <br />
-                            <div>
-                                <button disabled={personalInfo?.email ? false : true} type="submit">
-                                    Send
-                                </button>
-                            </div>
-                        </form>
-                    ) : (
-                        <h3>Email sent!</h3>
-                    )}
+                        </div>
+                        <label htmlFor="email">
+                            <p>E-mail*:</p>
+                            <input
+                                required
+                                type="email"
+                                placeholder="ipcelegenda@gmail.com"
+                                id="email"
+                                value={personalInfo?.email || ''}
+                                name="email"
+                                onChange={(e) => handleValue(e)}
+                            />
+                        </label>
+
+                        <label htmlFor="address">
+                            <p>Full address*:</p>
+                            <input
+                                required
+                                type="text"
+                                placeholder="Pogled Boska Buhe 2, Beograd"
+                                id="address"
+                                value={personalInfo?.address || ''}
+                                name="address"
+                                onChange={(e) => handleValue(e)}
+                            />
+                        </label>
+
+                        <label htmlFor="phone">
+                            <p>Phone*:</p>
+                            <input
+                                required
+                                type="tel"
+                                id="phone"
+                                placeholder="061063064"
+                                value={personalInfo?.phone || ''}
+                                name="phone"
+                                onChange={(e) => handleValue(e)}
+                            />
+                        </label>
+                        <br />
+                        <div>
+                            <button disabled={personalInfo?.email ? false : true}>Send</button>
+                        </div>
+                    </form>
                 </div>
             </section>
         </>

@@ -5,6 +5,7 @@ import { CartContext } from '../../CartContext';
 import './checkout.scss';
 import { CheckoutInfo } from '../../model/domain/interfaces/CheckoutInfo';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 //import { PersonalInfo } from '../../model/domain/interfaces/PersonalInfo';
 
 function Checkout() {
@@ -12,6 +13,8 @@ function Checkout() {
     const [cart, setCart] = useContext(CartContext);
     const [checkoutInfo, setCheckoutInfo] = useState<Array<CheckoutInfo>>([]);
     const [personalInfo, setPersonalInfo] = useState<any>({});
+    const [sent, setSent] = useState(false);
+    //const [text, setText] = useState<any>('');
 
     function handleRemoveItem(id: number) {
         let newCart = cart.filter((c: any) => {
@@ -26,15 +29,29 @@ function Checkout() {
             ...personalInfo,
             [e.target.name]: value,
         });
+        //setText(value);
     }
 
-    function handleCheckoutInfo(e: any) {
+    // printDelayed is a 'Promise<void>'
+    async function handleSend(e: any) {
         e.preventDefault();
         setCheckoutInfo({
             ...checkoutInfo,
             ...personalInfo,
             cart,
         });
+        setSent(true);
+        try {
+            if (checkoutInfo) {
+                let stringOfCheckoutInfo = JSON.stringify(checkoutInfo);
+                await axios.post('http://localhost:4000/send_mail', {
+                    stringOfCheckoutInfo,
+                });
+                console.log('stringOfCheckoutInfo', stringOfCheckoutInfo);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     console.log('checkoutInfo', checkoutInfo);
@@ -88,73 +105,77 @@ function Checkout() {
                     </div>
                     <h1>Checkout</h1>
                     <h2>Personal information</h2>
-                    <form onSubmit={(e) => handleCheckoutInfo(e)}>
-                        <div className="flex-center">
-                            <label htmlFor="firstName">
-                                <p>First name:</p>
+                    {!sent ? (
+                        <form id="checkout-form" onSubmit={(e) => handleSend(e)}>
+                            <div className="flex-center">
+                                <label htmlFor="firstName">
+                                    <p>First name:</p>
+                                    <input
+                                        type="text"
+                                        placeholder="Ipce"
+                                        id="firstName"
+                                        value={personalInfo?.firstName || ''}
+                                        name="firstName"
+                                        onChange={(e) => handleValue(e)}
+                                    />
+                                </label>
+                                <label htmlFor="lastName">
+                                    <p>Last name:</p>
+                                    <input
+                                        type="text"
+                                        placeholder="Ahmedovski"
+                                        id="lastName"
+                                        value={personalInfo?.lastName || ''}
+                                        name="lastName"
+                                        onChange={(e) => handleValue(e)}
+                                    />
+                                </label>
+                            </div>
+                            <label htmlFor="email">
+                                <p>E-mail:</p>
                                 <input
-                                    type="text"
-                                    placeholder="Ipce"
-                                    id="firstName"
-                                    value={personalInfo?.firstName || ''}
-                                    name="firstName"
+                                    type="email"
+                                    placeholder="ipcelegenda@gmail.com"
+                                    id="email"
+                                    value={personalInfo?.email || ''}
+                                    name="email"
                                     onChange={(e) => handleValue(e)}
                                 />
                             </label>
-                            <label htmlFor="lastName">
-                                <p>Last name:</p>
+
+                            <label htmlFor="address">
+                                <p>Full address:</p>
                                 <input
                                     type="text"
-                                    placeholder="Ahmedovski"
-                                    id="lastName"
-                                    value={personalInfo?.lastName || ''}
-                                    name="lastName"
+                                    placeholder="Pogled Boska Buhe 2, Beograd"
+                                    id="address"
+                                    value={personalInfo?.address || ''}
+                                    name="address"
                                     onChange={(e) => handleValue(e)}
                                 />
                             </label>
-                        </div>
-                        <label htmlFor="email">
-                            <p>E-mail:</p>
-                            <input
-                                type="email"
-                                placeholder="ipcelegenda@gmail.com"
-                                id="email"
-                                value={personalInfo?.email || ''}
-                                name="email"
-                                onChange={(e) => handleValue(e)}
-                            />
-                        </label>
 
-                        <label htmlFor="address">
-                            <p>Full address:</p>
-                            <input
-                                type="text"
-                                placeholder="Pogled Boska Buhe 2, Beograd"
-                                id="address"
-                                value={personalInfo?.address || ''}
-                                name="address"
-                                onChange={(e) => handleValue(e)}
-                            />
-                        </label>
-
-                        <label htmlFor="phone">
-                            <p>Phone:</p>
-                            <input
-                                type="tel"
-                                id="phone"
-                                placeholder="061063064"
-                                value={personalInfo?.phone || ''}
-                                name="phone"
-                                onChange={(e) => handleValue(e)}
-                            />
-                        </label>
-                        <br />
-                        <div>
-                            <button disabled={personalInfo?.email ? false : true} type="submit">
-                                Send
-                            </button>
-                        </div>
-                    </form>
+                            <label htmlFor="phone">
+                                <p>Phone:</p>
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    placeholder="061063064"
+                                    value={personalInfo?.phone || ''}
+                                    name="phone"
+                                    onChange={(e) => handleValue(e)}
+                                />
+                            </label>
+                            <br />
+                            <div>
+                                <button disabled={personalInfo?.email ? false : true} type="submit">
+                                    Send
+                                </button>
+                            </div>
+                        </form>
+                    ) : (
+                        <h3>Email sent!</h3>
+                    )}
                 </div>
             </section>
         </>

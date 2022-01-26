@@ -32,8 +32,11 @@ button {
     text-transform: uppercase;
     padding: 6px 10px 5px;
     line-height: 1.5;
+    //border: 1px solid transparent;
     &:hover {
-        outline: 1px solid #92278f;
+        border: 2px solid $primary;
+        border-radius: 4px;
+        color: $primary;
     }
 }
 

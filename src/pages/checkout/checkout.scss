@@ -1,0 +1,27 @@
+@import '../../assets/Dimensions.scss';
+@import '../../assets/Colors.scss';
+
+.checkout-info-wrapper {
+    display: flex;
+    margin: 2em auto;
+    gap: 10%;
+    .checkout-shopping-cart {
+        width: 40%;
+        .checkout-shopping-car {
+            padding: $halfBasicSpace $basicSpace;
+            background-color: #efefef40;
+            border-radius: 5px;
+        }
+    }
+    .personal-info {
+        width: 60%;
+        label {
+            p {
+                margin-bottom: 0;
+                margin-top: $halfBasicSpace;
+                font-size: 60%;
+                text-transform: uppercase;
+            }
+        }
+    }
+}

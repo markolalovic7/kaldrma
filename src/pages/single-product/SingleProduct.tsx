@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './single-product.scss';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -6,6 +6,9 @@ import { BiArrowBack } from 'react-icons/bi';
 import { CartContext } from '../../CartContext';
 import { ProductsUrlEnum } from '../../model/domain/interfaces/enums/ProductsUrlEnum';
 import { v4 as uuid } from 'uuid';
+import ShoppingCartList from '../../shared/components/shopping-cart/ShoppingCartList';
+import Cart from '../../shared/components/cart/Cart';
+import { Helmet } from 'react-helmet';
 
 interface tShirt {
     id: any;
@@ -16,6 +19,7 @@ interface tShirt {
 
 function SingleProduct() {
     const [product, setProduct] = useState<any>({});
+    const [shoppingCartVisible, setShoppingCartVisible] = React.useState<boolean>(false);
     let navigate = useNavigate();
     const url = ProductsUrlEnum.PRODUCT_URL;
     let { id } = useParams();
@@ -46,7 +50,6 @@ function SingleProduct() {
     //console.table(product);
 
     function handleSize(e: any) {
-        console.log('e', e.target.value);
         setSize(e.target.value);
     }
 
@@ -58,10 +61,25 @@ function SingleProduct() {
         setCart((prevState: simpleType) => [...prevState, tShirt]);
     }
 
+    function handleShoppingCartVisible() {
+        setShoppingCartVisible(!shoppingCartVisible);
+        if (shoppingCartVisible) {
+            document.body.classList.remove('isHidden');
+        } else {
+            document.body.classList.add('isHidden');
+        }
+    }
+
     console.log('cart', cart);
 
     return (
         <>
+            <Helmet>
+                <title>{`Kaldrma | ${product.title}`}</title>
+                <link rel="canonical" href={`https://kaldrma.com/${product.id}`} />
+            </Helmet>
+            <ShoppingCartList shoppingCartVisible={shoppingCartVisible} />
+            <Cart handleShoppingCartVisible={handleShoppingCartVisible} shoppingCartVisible={shoppingCartVisible} />
             {/* <div className="space">
                 <div className="space-inner"></div>
             </div> */}

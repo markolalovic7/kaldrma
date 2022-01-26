@@ -29,6 +29,46 @@ h1 {
     margin: 20px 0 10px 0;
 }
 
+form {
+    width: 750px;
+    overflow: hidden;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    label {
+        overflow: hidden;
+        display: block;
+    }
+    input[type='text'],
+    input[type='email'],
+    input[type='tel'] {
+        width: calc(100% - 10px);
+        height: 32px;
+    }
+    .flex-center {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        label {
+            flex: 1 1 auto;
+        }
+    }
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    opacity: 0.5; /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    opacity: 0.5; /* Firefox */
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    opacity: 0.5; /* Firefox */
+}
+
 @media only screen and (max-width: 400px) {
     h1 {
         font-size: 1.5rem;

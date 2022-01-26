@@ -1,4 +1,5 @@
 export const MainRoutes = {
 	HOME: '/',
-    SINGLE_PRODUCT: '/:id'
+    SINGLE_PRODUCT: '/:id',
+    CHECKOUT: '/checkout'
 };

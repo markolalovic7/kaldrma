@@ -7,6 +7,7 @@
     gap: 10%;
     figure {
         width: 40%;
+        margin: 0;
         img {
             width: 100%;
         }
@@ -26,7 +27,7 @@
         fieldset {
             div {
                 display: flex;
-                gap: $basicSpace / 2;
+                gap: $halfBasicSpace;
                 label {
                     cursor: pointer;
                 }

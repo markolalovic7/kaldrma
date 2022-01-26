@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './index.scss';
@@ -9,11 +8,9 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Router basename={'/'}>
-            <App />
-        </Router>
-    </React.StrictMode>,
+    <Router basename={'/'}>
+        <App />
+    </Router>,
     document.getElementById('root'),
 );
 

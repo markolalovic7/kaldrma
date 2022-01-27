@@ -1,18 +1,27 @@
-const express = require("express")
-const app = express()
-require("dotenv").config()
+const express = require("express");
+const app = express();
+const mongoose = require('mongoose');
+const userRoute = require("./routes/users")
 
-const bodyParser = require("body-parser")
-const cors = require("cors")
-const nodemailer = require("nodemailer")
+require("dotenv").config();
 
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+mongoose.connect(process.env.MONGO_DB_LINK)
+  .then(() => console.log("connection succesfull!"))
+  .catch((error) => console.log(error));
 
-app.use(cors())
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const nodemailer = require("nodemailer");
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
+app.use(express.json());
+
 
 app.post("/send_mail", cors(), async (req, res) => {
   let { checkoutInfo } = req.body
+
   const firstName = String(checkoutInfo['firstName']);
   const lastName = String(checkoutInfo['lastName']);
   const address = String(checkoutInfo['address']);
@@ -24,6 +33,7 @@ app.post("/send_mail", cors(), async (req, res) => {
   const sizes = checkoutInfo.cart.map((order) => {
     return (order.size)
   }).join(' // ')
+
   const transport = nodemailer.createTransport({
     host: process.env.MAIL_HOST,
     port: process.env.MAIL_PORT,
@@ -63,6 +73,14 @@ app.post("/send_mail", cors(), async (req, res) => {
   })
 })
 
+
+app.get("/api/test", () => {
+  console.log("yes")
+})
+app.use('/api/users', userRoute);
+
+
 app.listen(process.env.PORT || 4000, () => {
   console.log('Server is listening on port 4000');
 });
+

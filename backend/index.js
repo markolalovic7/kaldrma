@@ -12,7 +12,18 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.post("/send_mail", cors(), async (req, res) => {
-  let { stringOfCheckoutInfo } = req.body
+  let { checkoutInfo } = req.body
+  const firstName = String(checkoutInfo['firstName']);
+  const lastName = String(checkoutInfo['lastName']);
+  const address = String(checkoutInfo['address']);
+  const phone = String(checkoutInfo['phone']);
+  const email = String(checkoutInfo['email']);
+  const orders = checkoutInfo.cart.map((order) => {
+    return (order.name)
+  }).join(' // ')
+  const sizes = checkoutInfo.cart.map((order) => {
+    return (order.size)
+  }).join(' // ')
   const transport = nodemailer.createTransport({
     host: process.env.MAIL_HOST,
     port: process.env.MAIL_PORT,
@@ -33,12 +44,20 @@ app.post("/send_mail", cors(), async (req, res) => {
         line-height: 2;
         font-size: 20px; 
         ">
-        <h2>Here is your email!</h2>
+        <h2>Order!</h2>
         <p>
-        ${stringOfCheckoutInfo}
+        <small>${firstName}</small> // 
+        <small>${lastName} </small> // 
+        <small>${address} </small> // 
+        <small>${phone} </small> //
+        <small>${email}</small>
+        </p>
+        <p>
+        <small>${orders}</small> <br>
+        <small>${sizes}</small>
         </p>
     
-        <p>All the best, Darwin</p>
+        <p>All the best, Kaldrma</p>
          </div>
     `
   })

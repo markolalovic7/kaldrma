@@ -5,18 +5,19 @@ import { CartContext } from '../../CartContext';
 import './checkout.scss';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
+import { CheckoutInfo } from '../../model/domain/interfaces/CheckoutInfo';
+//import { PersonalInfo } from '../../model/domain/interfaces/PersonalInfo';
 
 function Checkout() {
     let navigate = useNavigate();
     const [cart, setCart] = useContext(CartContext);
-    const [checkoutInfo, setCheckoutInfo] = useState<any>({});
-    const [personalInfo, setPersonalInfo] = useState<any>({});
-    //const [sent, setSent] = useState(false);
-    //const [text, setText] = useState<any>('');
+    const [checkoutInfo, setCheckoutInfo] = useState<CheckoutInfo>();
+    const [personalInfo, setPersonalInfo] = useState<any>();
+    const [sent, setSent] = useState(false);
 
     useEffect(() => {
         setCheckoutInfo({ ...personalInfo, cart });
-    }, [personalInfo]);
+    }, [personalInfo, cart]);
 
     function handleRemoveItem(id: number) {
         let newCart = cart.filter((c: any) => {
@@ -31,27 +32,26 @@ function Checkout() {
             ...personalInfo,
             [e.target.name]: value,
         });
-        //setText(value);
     }
 
     // printDelayed is a 'Promise<void>'
     const handleSend = async (e: any) => {
         e.preventDefault();
-        let stringOfCheckoutInfo = JSON.stringify(checkoutInfo);
         setTimeout(() => {
             window.location.reload();
-        }, 2000);
+        }, 3000);
+        setCart([]);
+        setSent(true);
         try {
             await axios.post('http://localhost:4000/send_mail', {
-                stringOfCheckoutInfo,
+                checkoutInfo,
             });
         } catch (error) {
             console.log(error);
         }
     };
 
-    console.log('checkoutInfo-out', checkoutInfo);
-    console.log('cart', cart);
+    console.log('checkoutInfo', checkoutInfo);
 
     return (
         <>
@@ -172,6 +172,7 @@ function Checkout() {
                         <div>
                             <button disabled={personalInfo?.email ? false : true}>Send</button>
                         </div>
+                        {!sent ? '' : <h3>Email sent! We will contact you soon.</h3>}
                     </form>
                 </div>
             </section>

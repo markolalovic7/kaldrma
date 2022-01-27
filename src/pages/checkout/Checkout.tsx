@@ -61,7 +61,7 @@ function Checkout() {
             </Helmet>
             <section className="checkout-info-wrapper">
                 <div className="checkout-shopping-cart">
-                    <div className="checkout-shopping-car">
+                    <div className="checkout-shopping-cart-inner">
                         <h2>Shopping cart</h2>
                         {cart.map((c: any, i: number) => {
                             return (

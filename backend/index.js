@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const productRoute = require("./routes/products");
+const cartRoute = require("./routes/cart");
+const orderRoute = require("./routes/orders");
 
 require("dotenv").config();
 
@@ -24,7 +26,8 @@ app.use(express.json());
 app.use('/api/users', userRoute);
 app.use('/api/products', productRoute);
 app.use('/api/auth', authRoute);
-
+app.use('/api/cart', cartRoute);
+app.use('/api/orders', orderRoute)
 
 //MAIL TRAP
 

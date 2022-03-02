@@ -1,7 +1,10 @@
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
+
 const userRoute = require("./routes/users");
+const authRoute = require("./routes/auth");
+const productRoute = require("./routes/products");
 
 require("dotenv").config();
 
@@ -18,6 +21,12 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
 
+app.use('/api/users', userRoute);
+app.use('/api/products', productRoute);
+app.use('/api/auth', authRoute);
+
+
+//MAIL TRAP
 
 app.post("/send_mail", cors(), async (req, res) => {
   let { checkoutInfo } = req.body
@@ -73,11 +82,6 @@ app.post("/send_mail", cors(), async (req, res) => {
   })
 })
 
-
-app.get("/api/test", () => {
-  console.log("yes")
-})
-app.use('/api/users', userRoute);
 
 
 app.listen(process.env.PORT || 4000, () => {

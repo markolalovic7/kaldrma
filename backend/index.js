@@ -7,6 +7,7 @@ const authRoute = require("./routes/auth");
 const productRoute = require("./routes/products");
 const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/orders");
+const stripeRoute = require("./routes/stripe");
 
 require("dotenv").config();
 
@@ -28,6 +29,8 @@ app.use('/api/products', productRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/cart', cartRoute);
 app.use('/api/orders', orderRoute)
+app.use('/api/stripe', stripeRoute)
+
 
 //MAIL TRAP
 
